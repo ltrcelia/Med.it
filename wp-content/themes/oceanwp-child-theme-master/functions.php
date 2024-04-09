@@ -30,16 +30,8 @@ function oceanwp_child_enqueue_parent_style() {
 add_action( 'wp_enqueue_scripts', 'oceanwp_child_enqueue_parent_style' );
 
 
-add_action('wp_enqueue_scripts', 'enqueue_child_theme_assets');
-function enqueue_child_theme_assets() {
-    wp_enqueue_script('child-script', get_stylesheet_directory_uri() . '/scripts/script.js', array('jquery'), '1.0.0', true);
-    wp_enqueue_style('child-style', get_template_directory_uri() . '/style.css', array(), '1.0');
-}
-
-
 function contact_btn( $items, $args ) {
-	$items .= '<a href="/contact" class="contact-btn">Nous contacter</a>';
+	$items .= '<a href="contact/" class="contact-btn">Nous contacter</a>';
 	return $items;
 }
-
 add_filter( 'wp_nav_menu_items', 'contact_btn', 10, 2 );

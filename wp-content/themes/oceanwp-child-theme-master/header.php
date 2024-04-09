@@ -42,7 +42,6 @@
 
 
 <!-- Ajout d'une popup pour annoncer la participation au salon -->
-
 <?php
 // On récupère les champs ACF nécessaires
 $titre=get_field('titre', 161);
@@ -50,6 +49,7 @@ $description=get_field('description', 161);
 $lieu=get_field('lieu', 161);
 $date=get_field('date', 161);
 $lien=get_field('lien_google_maps', 161);
+$url = $lien['url'];
 ?>
 
 <div class="popup-overlay">
@@ -62,8 +62,15 @@ $lien=get_field('lien_google_maps', 161);
 		<div class="popup-details">
 			<div class="popup-address">
 				<p><b>Le lieu</b></p>
-				<?php echo $lieu; ?>
-				<a class="popup-link" href="https://goo.gl/maps/ZmNisJ59rwpCuU157" target="_blank">Voir sur Google Maps</a>
+				<?php
+				$lieu = get_field('lieu', 161);
+				if (is_string($lieu)) {
+					echo $lieu;
+				} else {
+					echo "Emplacement indisponible";
+				}
+				?>
+				<a class="popup-link" href="<?php echo $url; ?>" target="_blank">Voir sur Google Maps</a>
 				<!-- <?php var_dump($lien); ?> -->
 			</div>
 			<div class="popup-address">
@@ -80,7 +87,6 @@ $lien=get_field('lien_google_maps', 161);
 </div>
 
 <!-- Code pour fermer la popup -->
-
 <script>
 jQuery(document).ready(function($) {
     $('.popup-close').click(function(){
@@ -91,9 +97,7 @@ jQuery(document).ready(function($) {
 
 
 <!-- Ajout d'un bouton contact au menu -->
-
 <?php
-
 /**
  * Shortcode pour ajouter un bouton
  */
@@ -107,6 +111,5 @@ jQuery(document).ready(function($) {
 
 // }
 // On publie le shortcode
-add_shortcode('contact', 'contact_btn');
-
+// add_shortcode('contact', 'contact_btn');
 ?>
